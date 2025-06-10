@@ -7,3 +7,5 @@ wget https://datasets.imdbws.com/title.crew.tsv.gz -P import/
 wget https://datasets.imdbws.com/title.episode.tsv.gz -P import/
 wget https://datasets.imdbws.com/title.principals.tsv.gz -P import/
 wget https://datasets.imdbws.com/title.ratings.tsv.gz -P import/
+
+docker compose up

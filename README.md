@@ -9,7 +9,7 @@ This project contains SQL scripts to initialize an IMDB-like database and perfor
 To download the required IMDB datasets, run:
 
 ```bash
-bash Initialize.sh
+bash start.sh
 ```
 
 This will create a `data/` directory and download all necessary `.tsv.gz` files.
