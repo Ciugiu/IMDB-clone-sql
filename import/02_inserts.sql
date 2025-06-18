@@ -1,36 +1,23 @@
 USE imdb_clone;
 
+-- Import IMDB data using COPY and zcat for each table
+COPY akas FROM PROGRAM 'zcat import/title.akas.tsv.gz'
+WITH (FORMAT csv, DELIMITER E'\t', HEADER, NULL '\N', QUOTE E'\001');
 
-INSERT INTO akas (titleId, ordering, title, region, language, types, attributes, isOriginalTitle)
-VALUES
-('tt0000001', 1, 'Carmencita', 'US', 'en', '["original"]', '[]', 1);
+COPY basics FROM PROGRAM 'zcat import/title.basics.tsv.gz'
+WITH (FORMAT csv, DELIMITER E'\t', HEADER, NULL '\N', QUOTE E'\001');
 
+COPY crew FROM PROGRAM 'zcat import/title.crew.tsv.gz'
+WITH (FORMAT csv, DELIMITER E'\t', HEADER, NULL '\N', QUOTE E'\001');
 
-INSERT INTO basics (tconst, titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, genres)
-VALUES
-('tt0000001', 'short', 'Carmencita', 'Carmencita', 0, 1894, NULL, 1, '["Documentary","Short"]');
+COPY episode FROM PROGRAM 'zcat import/title.episode.tsv.gz'
+WITH (FORMAT csv, DELIMITER E'\t', HEADER, NULL '\N', QUOTE E'\001');
 
+COPY principals FROM PROGRAM 'zcat import/title.principals.tsv.gz'
+WITH (FORMAT csv, DELIMITER E'\t', HEADER, NULL '\N', QUOTE E'\001');
 
-INSERT INTO crew (tconst, directors, writers)
-VALUES
-('tt0000001', '["nm0005690"]', '[]');
+COPY ratings FROM PROGRAM 'zcat import/title.ratings.tsv.gz'
+WITH (FORMAT csv, DELIMITER E'\t', HEADER, NULL '\N', QUOTE E'\001');
 
-
-INSERT INTO episode (tconst, parentTconst, seasonNumber, episodeNumber)
-VALUES
-('tt0000752', 'tt1837642', 1, 1);
-
-
-INSERT INTO principals (tconst, ordering, nconst, category, job, characters)
-VALUES
-('tt0000001', 1, 'nm1588970', 'actress', '\\N', '["Carmencita"]');
-
-
-INSERT INTO ratings (tconst, averageRating, numVotes)
-VALUES
-('tt0000001', 5.6, 1600);
-
-
-INSERT INTO name_basics (nconst, primaryName, birthYear, deathYear, primaryProfession, knownForTitles)
-VALUES
-('nm1588970', 'Carmencita', 1868, 1910, '["actress"]', '["tt0000001"]');
+COPY name_basics FROM PROGRAM 'zcat import/name.basics.tsv.gz'
+WITH (FORMAT csv, DELIMITER E'\t', HEADER, NULL '\N', QUOTE E'\001');
