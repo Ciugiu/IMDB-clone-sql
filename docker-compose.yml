@@ -5,13 +5,29 @@ services:
     image: postgres:15-alpine
     container_name: postgres_db
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
       POSTGRES_DB: mydatabase
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - postgres_network
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: adminpass
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - postgres_network
+
 
   tests:
     image: python:3.11-alpine
@@ -26,3 +42,7 @@ services:
 volumes:
   postgres_data:
     driver: local
+
+networks:
+  postgres_network:
+    driver: bridge
